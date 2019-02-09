@@ -17,7 +17,7 @@ module.exports = (app) => {
     app.use(express.static(path.join(__dirname, 'public')));
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(expressSession({
-        secret: process.env.COOKIE_SECRET,
+        secret: process.env.COOKIE_SECRET || "string",
         resave: false,
         saveUninitialized: false
     }));
