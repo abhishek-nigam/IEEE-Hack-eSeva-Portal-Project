@@ -55,7 +55,7 @@ router.post("/signIn", passport.authenticate("local", {
 
 router.get("/signOut", function (req, res) {
     req.logout();
-    return res.redirect('/');
+    res.redirect('/');
 });
 
 router.get("/dashboard", (req, res) => {

@@ -21,16 +21,16 @@ router.get('/upvotedProblems', async (req, res) => {
 
 
 router.get('/submitProblem', (req, res) => {
-    return res.render('problem/submitProblem');
+    return res.render('problem/submitProblem',{category: constants.categoriesList, region: constants.regionsList});
 });
 
 
 router.post('/submitProblem', imageParser.array('images', 3), async (req, res) => {
 
-    if (!req.isAuthenticated()) {
-        res.flash('error', 'You need to sign in first');
-        return res.redirect("/user/public/signin");
-    }
+    // if (!req.isAuthenticated()) {
+    //     res.flash('error', 'You need to sign in first');
+    //     return res.redirect("/user/public/signin");
+    // }
 
     const problemId = req.body.category + '--' + req.body.region + '--' + String(Date.now() % 100000);
     const imageUrl1 = req.files[0] ? req.files[0].url : null;
@@ -39,7 +39,7 @@ router.post('/submitProblem', imageParser.array('images', 3), async (req, res) =
 
     const newProblem = new Problem({
         problem_id: problemId,
-        author_id: req.user._id,
+        author_id: "5c5f1ab7ef1c050344e27733",
         region: req.body.region,
         category: req.body.category,
         representative_name: constants.regionReps[req.body.region],
