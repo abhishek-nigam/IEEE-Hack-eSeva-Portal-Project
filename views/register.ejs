@@ -2,8 +2,12 @@
 
 <h1>Sign Up Form</h1>
 
-<form action="/register" method="POST">
+<form action="/user/public/signup" method="POST">
+    <input type="text" name="firstname" placeholder="firstname">
+    <input type="text" name="lastname" placeholder="lastname">
     <input type="text" name="username" placeholder="username">
+    <input type="email" name="email" placeholder="email">
+    <input type="number" name="aadhar" placeholder="aadhar number">
     <input type="password" name="password" placeholder="password">
     <button>Submit</button>
 </form>

@@ -17,6 +17,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
+
+//PASSPORT CONFIGURATION
+app.use(require("express-session")({
+    secret: "yes i am the most strong willed person on the planet!",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 const routes = require("./routes/index");
 app.use(routes);
 
