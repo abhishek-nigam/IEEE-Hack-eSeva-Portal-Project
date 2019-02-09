@@ -54,12 +54,21 @@ router.get("/signOut", function (req, res) {
 
 router.get("/profile", (req, res) => {
     res.send("user profile page")
-})
+});
 
 
 router.get("/editProfile", (req, res) => {
     res.send("user profile EDIT page")
-})
+});
+
+
+router.post("/editProfile", (req, res) => {
+    res.send("user profile EDIT page")
+});
+
+
+router.get("/dashboard", (res, req) => {
+});
 
 
 module.exports = router;

@@ -14,6 +14,12 @@ const statusCodesList = [
     statusCodes.CLOSED
 ];
 
+const regionReps = {
+    'North Delhi': 'Mrs Ashwani',
+    'South Delhi': 'Ms Pooja',
+    'East Delhi': 'Mr Ankush',
+    'West Delhi': 'Mr Sandeep'
+}
 
 const regionsList = [
     'North Delhi',
@@ -34,10 +40,15 @@ const categoriesList = [
     'Other'
 ];
 
+const folderName = {
+    PROBLEM_IMAGES = 'profile images'
+}
 
 module.exports = {
     statusCodes,
     statusCodesList,
     regionsList,
-    categoriesList
+    categoriesList,
+    regionReps,
+    folderName
 }

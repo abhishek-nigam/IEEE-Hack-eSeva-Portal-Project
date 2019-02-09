@@ -52,8 +52,7 @@ const problemSchema = new mongoose.Schema({
     },
 
     assignees: {
-        type: String,
-        required: false
+        type: String
     },
 
     problem_title: {
@@ -84,11 +83,6 @@ const problemSchema = new mongoose.Schema({
     }
 
 }, { timestamps: true });
-
-
-problemSchema.methods.generateProblemId = function () {
-    return this.category + '--' + this.region + '--' + String(Date.now() % 100000);
-}
 
 
 module.exports = mongoose.model("Problem", problemSchema);
