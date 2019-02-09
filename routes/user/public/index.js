@@ -4,13 +4,13 @@ const passport = require("passport");
 const User = require("../../../models/user");
 
 
-router.get('/signUp', (req, res) => {
-    return res.render("user/public/signUp");
+router.get('/signup', (req, res) => {
+    res.render("publicSignUp")
 });
 
 
-router.post("/signUp", (req, res) => {
-
+router.post("/signup", (req, res) => {
+    //console.log(req.body)
     const newUser = new User({
         username: req.body.username,
         first_name: req.body.firstname,
@@ -18,16 +18,19 @@ router.post("/signUp", (req, res) => {
         aadhar: req.body.aadhar,
         email: req.body.email
     });
+    console.log(newUser)
 
     User.register(newUser, req.body.password, function (err, user) {
         if (err) {
-            req.flash("error", err.message);
-            return res.render("user/public/signUp");
+           // req.flash("error", err.message);
+           console.log(err.message)
+            return res.render("publicSignUp");
         }
 
         // sign in
         passport.authenticate("local")(req, res, function () {
-            return res.redirect("/user/public/dashboard");
+            //return res.redirect("/user/public/dashboard");
+            res.render("user/public/dashboard")
         });
     });
 
@@ -36,20 +39,28 @@ router.post("/signUp", (req, res) => {
 
 
 router.get("/signIn", (req, res) => {
-    return res.render("user/public/signIn");
+    //return res.render("user/public/signIn");
+    res.render("publicLogin")
 });
 
 
 router.post("/signIn", passport.authenticate("local", {
     successRedirect: "/user/public/dashboard",
-    failureRedirect: "/login"
-}), () => { });
+    failureRedirect: "/user/public/signIn"
+}), (req,res) => { });
 
+// router.post("/signIn", (req,res) => {
+//     res.send("Login logic")
+// })
 
 router.get("/signOut", function (req, res) {
     req.logout();
     return res.redirect('/');
 });
+
+router.get("/dashboard", (req, res) => {
+    res.render("user/public/dashboard")
+})
 
 
 router.get("/profile", (req, res) => {
