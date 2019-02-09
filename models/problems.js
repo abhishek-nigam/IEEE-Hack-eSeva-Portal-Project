@@ -62,12 +62,14 @@ var ProblemSchema = new mongoose.Schema({
         required: true
     },
 
+   
+
     //upvoting_users
 
 
 
 
-    by_representative: false
+    
     
 },{timestamps:true});
 

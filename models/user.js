@@ -26,8 +26,10 @@ var UserSchema = new mongoose.Schema({
         type: String, 
         required: true
     },
-    
-    is_email_verified : false,
+
+    is_email_verified : {
+        default: false
+    }
     //submitted_problems :
     //upvoted_problems :
     

@@ -17,7 +17,9 @@ var CoommentSchema = new mongoose.Schema({
         required: true
     },
 
-    by_representative: false
+    by_representative: {
+        default: false
+    }
     
 },{timestamps:true});
 
