@@ -1,40 +1,55 @@
-var mongoose = require("mongoose");
-var passportLocalMongoose = require("passport-local-mongoose")
+const mongoose = require("mongoose");
 
-var UserSchema = new mongoose.Schema({
-    firstname : {
-        type: String, 
-        required: true
-    },
-    
-    lastname  : {
-        type: String, 
+
+const userSchema = new mongoose.Schema({
+    first_name: {
+        type: String,
         required: true
     },
 
-    password  : {
-        type: String, 
+    last_name: {
+        type: String
+    },
+
+    username: {
+        type: String,
+        required: true,
+        unique: true
+    },
+
+    password: {
+        type: String,
         required: true
     },
 
-    email     : {
-        type: String, 
+    email: {
+        type: String,
+        unique: true,
         required: true
     },
 
-    aadhar    : {
-        type: String, 
-        required: true
-    },
-
-    is_email_verified : {
+    is_email_verified: {
         default: false
-    }
-    //submitted_problems :
-    //upvoted_problems :
-    
-},{timestamps:true});
+    },
 
-UserSchema.plugin(passportLocalMongoose);
+    aadhar: {
+        type: String,
+        required: true
+    },
 
-module.exports = mongoose.model("User", UserSchema);
+    submitted_problems: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Problem',
+        default: []
+    },
+
+    upvoted_problems: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Problem',
+        default: []
+    },
+
+}, { timestamps: true });
+
+
+module.exports = mongoose.model('User', userSchema);

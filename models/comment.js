@@ -1,28 +1,30 @@
 var mongoose = require("mongoose");
-var passportLocalMongoose = require("passport-local-mongoose")
 
-var CoommentSchema = new mongoose.Schema({
-    problem_id  : {
-        type: String, 
+
+var commentSchema = new mongoose.Schema({
+    problem_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Problem',
         required: true
     },
 
-    author_id  : {
-        type: String, 
-        required: false
-    },
-
-    comment_text     : {
-        type: String, 
+    author_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Problem',
         required: true
     },
 
-    by_representative: {
+    text: {
+        type: String,
+        required: true
+    },
+
+    is_by_representative: {
+        type: Boolean,
         default: false
     }
-    
-},{timestamps:true});
 
-UserSchema.plugin(passportLocalMongoose);
+}, { timestamps: true });
 
-module.exports = mongoose.model("Comment", CommentSchema);
+
+module.exports = mongoose.model("Comment", commentSchema);
