@@ -26,7 +26,7 @@ var UserSchema = new mongoose.Schema({
         type: String, 
         required: true
     },
-
+  
     is_email_verified : {
         default: false
     }
