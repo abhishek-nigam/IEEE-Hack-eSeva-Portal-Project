@@ -4,7 +4,8 @@ const userRoutes = require('./user/index');
 
 
 router.get('/', (req, res) => {
-    return res.send('Index page');
+    //return res.send('Index page');
+    res.render("landing")
 });
 
 
