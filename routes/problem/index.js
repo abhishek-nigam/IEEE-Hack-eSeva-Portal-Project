@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const moment = require('moment');
 
 const Problem = require('../../models/problem');
 const constants = require('../../constants');
@@ -68,9 +69,10 @@ router.get('/specificProblem/:id', async (req, res) => {
         return res.send('404 problem cannot be found');
     }
 
-    return res.render('problemList', {
+    return res.render('problemlist', {
         problem: problem,
-        is_problem_author: true
+        is_problem_author: true,
+        date: moment(Date((problem.createdAt)).toISOString).format('MMMM Do YYYY, h:mm a')
     });
 });
 
