@@ -4,6 +4,9 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const path = require('path');
 
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user")
 
 require('./startup')();
 
