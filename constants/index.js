@@ -41,7 +41,7 @@ const categoriesList = [
 ];
 
 const folderName = {
-    PROBLEM_IMAGES = 'profile images'
+    PROBLEM_IMAGES: 'profile images'
 }
 
 module.exports = {
