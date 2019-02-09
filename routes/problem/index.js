@@ -7,6 +7,8 @@ const imageParser = require('../../utils/cloudinaryImageParser');
 
 router.get('/allProblems', (req, res) => {
 
+
+
 });
 
 
@@ -21,7 +23,7 @@ router.get('/upvotedProblems', async (req, res) => {
 
 
 router.get('/submitProblem', (req, res) => {
-    return res.render('problem/submitProblem',{category: constants.categoriesList, region: constants.regionsList});
+    return res.render('problem/submitProblem', { category: constants.categoriesList, region: constants.regionsList });
 });
 
 
@@ -43,9 +45,9 @@ router.post('/submitProblem', imageParser.array('images', 3), async (req, res) =
         region: req.body.region,
         category: req.body.category,
         representative_name: constants.regionReps[req.body.region],
-        image_url_1: imageUrl1,
-        image_url_2: imageUrl2,
-        image_url_3: imageUrl3,
+        img_url_1: imageUrl1,
+        img_url_2: imageUrl2,
+        img_url_3: imageUrl3,
         status_code: constants.statusCodes.POSTED,
         problem_title: req.body.problem_title,
         problem_desc: req.body.problem_desc,
@@ -54,13 +56,22 @@ router.post('/submitProblem', imageParser.array('images', 3), async (req, res) =
 
     await newProblem.save();
 
-    res.flash('success', 'Problem submitted successfully');
+    // res.flash('success', 'Problem submitted successfully');
     return res.redirect("/user/public/dashboard");
 });
 
 
-router.get('/problem/:id', (req, res) => {
+router.get('/specificProblem/:id', async (req, res) => {
 
+    const problem = await Problem.findOne({ problem_id: req.params.id }, ['-_id', '-updatedAt', '-__v']).populate('author_id');
+    if (!problem) {
+        return res.send('404 problem cannot be found');
+    }
+
+    return res.render('problemList', {
+        problem: problem,
+        is_problem_author: true
+    });
 });
 
 
