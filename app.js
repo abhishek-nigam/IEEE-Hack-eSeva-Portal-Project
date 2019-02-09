@@ -1,5 +1,8 @@
 require('dotenv').config();
 
+require('./startup')();
+
+
 const express = require("express");
 
 
