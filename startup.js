@@ -5,6 +5,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const bodyParser = require('body-parser');
 const path = require('path');
+const flash = require('connect-flash');
 
 const User = require("./models/user")
 
@@ -20,6 +21,7 @@ module.exports = (app) => {
         resave: false,
         saveUninitialized: false
     }));
+    app.use(flash());
 
 
     /// Setup passport

@@ -1,64 +1,65 @@
-const router = require('express').Router(),
-       passport   = require("passport"),
-       User       = require("../../../models/user")
+const router = require('express').Router();
+const passport = require("passport");
+
+const User = require("../../../models/user");
+
 
 router.get('/signUp', (req, res) => {
-    //return res.send('sign up route');
-    res.render("register");
+    return res.render("user/public/signUp");
 });
 
-//handle sign up logic
-router.post("/signup", (req, res) => {
-    console.log(req.body)
-   var newUser = new User({username: req.body.username,first_name: req.body.firstname, last_name: req.body.lastname, aadhar: req.body.aadhar, email: req.body.email});
-    User.register(newUser, req.body.password, function(err, user){
-        if(err){
-            //req.flash("error",err.message);
-            return res.send(err.message)
-            // return res.render("signup");
+
+router.post("/signUp", (req, res) => {
+
+    const newUser = new User({
+        username: req.body.username,
+        first_name: req.body.firstname,
+        last_name: req.body.lastname,
+        aadhar: req.body.aadhar,
+        email: req.body.email
+    });
+
+    User.register(newUser, req.body.password, function (err, user) {
+        if (err) {
+            req.flash("error", err.message);
+            return res.render("user/public/signUp");
         }
-        passport.authenticate("local")(req, res, function(){
-            //req.flash("success", "Welcome to Vseva " + user.username);
-            //res.redirect("/campgrounds");
-            res.send("signup logic successfull - the profile page")
+
+        // sign in
+        passport.authenticate("local")(req, res, function () {
+            return res.redirect("/user/public/dashboard");
         });
     });
 
 
 });
 
-//show login form
-router.get("/login", function(req, res){
-    res.render("login");
-   //res.send("login form")
+
+router.get("/signIn", (req, res) => {
+    return res.render("user/public/signIn");
 });
 
-//handle login logic
-//app.post("/login", middleware, callback)
-router.post("/login", passport.authenticate("local",
-    {
-        successRedirect: "/problems",
-        // successFlash: 'Welcome to Vseva!',
-        // failureFlash: true,
-        failureRedirect: "/login"
-    }), function(req, res){
-    });
 
-//logout route
-router.get("/logout",function(req, res){
+router.post("/signIn", passport.authenticate("local", {
+    successRedirect: "/user/public/dashboard",
+    failureRedirect: "/login"
+}), () => { });
+
+
+router.get("/signOut", function (req, res) {
     req.logout();
-   // req.flash("success","Logged you out!")
-   //res.redirect("/problems");
-   res.send("logged out")
+    return res.redirect('/');
 });
 
 
-router.get("/profile", (req,res) => {
+router.get("/profile", (req, res) => {
     res.send("user profile page")
 })
 
-router.get("/editProfile", (req,res) => {
+
+router.get("/editProfile", (req, res) => {
     res.send("user profile EDIT page")
 })
+
 
 module.exports = router;
