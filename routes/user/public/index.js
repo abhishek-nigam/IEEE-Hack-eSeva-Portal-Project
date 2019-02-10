@@ -30,11 +30,9 @@ router.post("/signup", (req, res) => {
         // sign in
         passport.authenticate("local")(req, res, function () {
             //return res.redirect("/user/public/dashboard");
-            res.render("user/public/dashboard")
+            res.render("user/public/dashboard",{username: req.body.username})
         });
     });
-
-
 });
 
 
@@ -44,18 +42,18 @@ router.get("/signIn", (req, res) => {
 });
 
 
-router.post("/signIn", passport.authenticate("local", {
-    successRedirect: "/user/public/dashboard",
-    failureRedirect: "/user/public/signIn"
-}), (req, res) => { });
+// router.post("/signIn", passport.authenticate("local", {
+//     successRedirect: "/user/public/dashboard",
+//     failureRedirect: "/user/public/signIn"
+// }), (req,res) => { });
 
-// router.post("/signIn", (req,res) => {
-//     res.send("Login logic")
-// })
+router.post("/signIn", (req,res) => {
+    res.render("user/public/dashboard",{username: req.body.username})
+})
 
 router.get("/signOut", function (req, res) {
-    req.logout();
-    res.redirect('/');
+   // req.logout();
+    res.redirect('/landing');
 });
 
 router.get("/dashboard", (req, res) => {
@@ -72,13 +70,8 @@ router.get("/editProfile", (req, res) => {
     res.send("user profile EDIT page")
 });
 
-
 router.post("/editProfile", (req, res) => {
     res.send("user profile EDIT page")
-});
-
-
-router.get("/dashboard", (res, req) => {
 });
 
 
