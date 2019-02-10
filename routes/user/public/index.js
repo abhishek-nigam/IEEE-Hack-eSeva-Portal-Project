@@ -22,8 +22,8 @@ router.post("/signup", (req, res) => {
 
     User.register(newUser, req.body.password, function (err, user) {
         if (err) {
-           // req.flash("error", err.message);
-           console.log(err.message)
+            // req.flash("error", err.message);
+            console.log(err.message)
             return res.render("publicSignUp");
         }
 
@@ -47,7 +47,7 @@ router.get("/signIn", (req, res) => {
 router.post("/signIn", passport.authenticate("local", {
     successRedirect: "/user/public/dashboard",
     failureRedirect: "/user/public/signIn"
-}), (req,res) => { });
+}), (req, res) => { });
 
 // router.post("/signIn", (req,res) => {
 //     res.send("Login logic")
@@ -59,12 +59,12 @@ router.get("/signOut", function (req, res) {
 });
 
 router.get("/dashboard", (req, res) => {
-    res.render("user/public/dashboard")
+    return res.render("user/public/dashboard")
 })
 
 
 router.get("/profile", (req, res) => {
-    res.send("user profile page")
+    return res.render('user/public/profile');
 });
 
 

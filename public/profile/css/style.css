@@ -1,0 +1,17 @@
+.card_graphic {   
+    background: linear-gradient(135deg, #1e5799 0%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    height: 16em;
+    position: relative;
+}
+
+.card_graphic_content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card_graphic_content img {
+    height: 150px;
+    width: 150px;
+}

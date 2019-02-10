@@ -6,10 +6,20 @@ const constants = require('../../constants');
 const imageParser = require('../../utils/cloudinaryImageParser');
 
 
-router.get('/allProblems', (req, res) => {
+router.get('/allProblems', async (req, res) => {
 
+    const problems = await Problem.find({
+        region: req.query.region,
+        category: req.query.category,
+        status_code: req.query.status_code
+    })
 
-
+    return res.render('problem/problems', {
+        problems: problems,
+        regions: constants.regionsList,
+        categories: constants.categoriesList,
+        statusCodes: constants.statusCodesList
+    });
 });
 
 
