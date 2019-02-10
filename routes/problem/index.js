@@ -8,17 +8,28 @@ const imageParser = require('../../utils/cloudinaryImageParser');
 
 router.get('/allProblems', async (req, res) => {
 
-    const problems = await Problem.find({
-        region: req.query.region,
-        category: req.query.category,
-        status_code: req.query.status_code
-    })
+    const filter = {};
+
+    if (req.query.region) {
+        filter.region = req.query.region;
+    }
+
+    if (req.query.category) {
+        filter.category = req.query.category;
+    }
+
+    if (req.query.statusCode) {
+        filter.status_code = req.query.statusCode;
+    }
+
+    const problems = await Problem.find(filter);
 
     return res.render('problem/problems', {
         problems: problems,
         regions: constants.regionsList,
         categories: constants.categoriesList,
-        statusCodes: constants.statusCodesList
+        statusCodes: constants.statusCodesList,
+        query: req.query
     });
 });
 
