@@ -55,47 +55,61 @@
 
 
     <section>
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Region
-                    </button>
-                    <select name="region">
-                        <% for (let region of regions) { %>
-                        <option value="<%= region %>"><%= region %></option>
-                        <% } %>
-                    </select>>
+
+        <form action="/problem/allProblems" method="GET">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="dropdown">
+                            <label>
+                                Select Category
+                            </label>
+                            <br>
+                            <select name="region">
+                                <option value="">Select</option>
+                                <% for (let region of regions) { %>
+                                <option value="<%= region %>"><%= region %></option>
+                                <% } %>
+                            </select>>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="dropdown">
+                            <label>
+                                Select Category
+                            </label>
+                            <br>
+                            <select name="category">
+                                <option value="">Select</option>
+                                <% for (let category of categories) { %>
+                                <option value="<%= category %>"><%= category %></option>
+                                <% } %>
+                            </select>>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="dropdown">
+                            <label>
+                                Select Status Code
+                            </label>
+                            <br>
+                            <select name="statusCode">
+                                <option value="">Select</option>
+                                <% for (let statusCode of statusCodes) { %>
+                                <option value="<%= statusCode %>"><%= statusCode %></option>
+                                <% } %>
+                            </select>>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <input type="submit" value="Submit" />
+                    </div>
+
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Select Category
-                    </button>
-                    <select name="category">
-                        <% for (let category of categories) { %>
-                        <option value="<%= category %>"><%= category %></option>
-                        <% } %>
-                    </select>>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Status
-                    </button>
-                    <select name="status_code">
-                        <% for (let statusCode of statusCodes) { %>
-                        <option value="<%= statusCode %>"><%= statusCode %></option>
-                        <% } %>
-                    </select>>
-                </div>
-            </div>
-        </div>
+        </form>
+
     </section>
     <section id="section-contact" class="section appear clearfix">
         <div class="container">
@@ -108,33 +122,17 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="cform" id="contact-form">
-                        <div id="sendmessage">Your message has been sent. Thank you!</div>
-                        <div id="errormessage"></div>
-                        <form action="" method="post" class="contactForm">
-                            <div class="field subject form-group">
-                                <textarea name="message" class="cform-textarea" cols="5" rows="2" data-rule="required"
-                                    data-msg="Please write something for us">
-                    ##Title
-                  </textarea>
-                                <div class="validation"></div>
+                        <% for (let problem of problems) { %>
+                        <a href="/problem/specificProblem/<%= problem.problem_id %>">
+                            <div style="background: #D6EAF8; padding: 12px; border-radius: 5px; margin: 15px">
+                                <h4>Problem Title: <%= problem.problem_title%></h4>
+                                <h5>Problem Description: <%= problem.problem_desc%></h5>
+                                <h6>Category: <%= problem.category %></h6>
+                                <h6>Region: <%= problem.region %></h6>
+                                <h6>Status Code: <%= problem.status_code %></h6>
                             </div>
-
-                            <div class="field message form-group">
-
-                                <textarea name="message" class="cform-textarea" cols="40" rows="10" data-rule="required"
-                                    data-msg="Please write something for us">
-
-                  ## Username
-                  ## Description
-                </textarea>
-                                <div class="validation"></div>
-                            </div>
-
-                            <div class="send-btn">
-                                <input type="submit" value="SEND MESSAGE" class="btn btn-theme">
-                            </div>
-
-                        </form>
+                        </a>
+                        <% } %>
                     </div>
                 </div>
             </div>
